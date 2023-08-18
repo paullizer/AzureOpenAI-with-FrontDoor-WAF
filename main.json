@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.20.4.51522",
-      "templateHash": "3596420876152662725"
+      "templateHash": "13057767676032804835"
     }
   },
   "parameters": {
@@ -233,7 +233,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.20.4.51522",
-              "templateHash": "6403464942788666355"
+              "templateHash": "13306549572642087780"
             }
           },
           "parameters": {
@@ -275,8 +275,8 @@
               "properties": {
                 "model": {
                   "format": "OpenAI",
-                  "name": "gpt-35-turbo",
-                  "version": "0613"
+                  "name": "text-embedding-ada-002",
+                  "version": "2"
                 },
                 "versionUpgradeOption": "OnceNewDefaultVersionAvailable",
                 "raiPolicyName": "Microsoft.Default"
@@ -522,7 +522,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.20.4.51522",
-              "templateHash": "7817645694657817971"
+              "templateHash": "12862985966168185951"
             }
           },
           "parameters": {
@@ -537,6 +537,7 @@
             }
           },
           "variables": {
+            "ipAddressCidr": "[format('{0}/32', parameters('privateEndpointIpAddress'))]",
             "frontEndEndpointName": "frontEndEndpoint",
             "loadBalancingSettingsName": "loadBalancingSettings",
             "healthProbeSettingsName": "healthProbeSettings",
@@ -585,8 +586,8 @@
                     "properties": {
                       "backends": [
                         {
-                          "address": "[parameters('privateEndpointIpAddress')]",
-                          "backendHostHeader": "[parameters('privateEndpointIpAddress')]",
+                          "address": "[variables('ipAddressCidr')]",
+                          "backendHostHeader": "[variables('ipAddressCidr')]",
                           "httpPort": 80,
                           "httpsPort": 443,
                           "weight": 50,

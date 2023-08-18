@@ -3,6 +3,8 @@ param frontDoorName string
 
 param privateEndpointIpAddress string
 
+var ipAddressCidr = '${privateEndpointIpAddress}/32'
+
 var frontEndEndpointName = 'frontEndEndpoint'
 var loadBalancingSettingsName = 'loadBalancingSettings'
 var healthProbeSettingsName = 'healthProbeSettings'
@@ -52,8 +54,8 @@ resource frontDoor 'Microsoft.Network/frontDoors@2020-05-01' = {
         properties: {
           backends: [
             {
-              address: privateEndpointIpAddress
-              backendHostHeader: privateEndpointIpAddress
+              address: ipAddressCidr
+              backendHostHeader: ipAddressCidr
               httpPort: 80
               httpsPort: 443
               weight: 50

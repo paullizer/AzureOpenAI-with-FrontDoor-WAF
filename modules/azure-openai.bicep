@@ -29,8 +29,8 @@ resource azureOpenAiModel 'Microsoft.CognitiveServices/accounts/deployments@2023
   properties: {
     model: {
       format: 'OpenAI'
-      name: 'gpt-35-turbo'
-      version: '0613'
+      name: 'text-embedding-ada-002'
+      version: '2'
     }
     versionUpgradeOption: 'OnceNewDefaultVersionAvailable'
     raiPolicyName: 'Microsoft.Default'
