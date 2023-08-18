@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.20.4.51522",
-      "templateHash": "13057767676032804835"
+      "templateHash": "14812011525097702610"
     }
   },
   "parameters": {
@@ -28,6 +28,18 @@
       "defaultValue": "10.0.0.0/24",
       "metadata": {
         "description": "The IP address prefix (CIDR range) to use when deploying the API Management subnet within the virtual network."
+      }
+    },
+    "azureOpenModel": {
+      "type": "string",
+      "defaultValue": "gpt-35-turbo-16k",
+      "allowedValues": [
+        "gpt-35-turbo",
+        "gpt-35-turbo-16k",
+        "text-embedding-ada-002"
+      ],
+      "metadata": {
+        "description": "Select the model for Azure Open AI service."
       }
     }
   },
@@ -224,6 +236,9 @@
           },
           "location": {
             "value": "[parameters('location')]"
+          },
+          "azureOpenModel": {
+            "value": "[parameters('azureOpenModel')]"
           }
         },
         "template": {
@@ -233,7 +248,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.20.4.51522",
-              "templateHash": "13306549572642087780"
+              "templateHash": "9916004511015805758"
             }
           },
           "parameters": {
@@ -241,6 +256,9 @@
               "type": "string"
             },
             "location": {
+              "type": "string"
+            },
+            "azureOpenModel": {
               "type": "string"
             }
           },
@@ -263,27 +281,6 @@
                 },
                 "publicNetworkAccess": "Disabled"
               }
-            },
-            {
-              "type": "Microsoft.CognitiveServices/accounts/deployments",
-              "apiVersion": "2023-05-01",
-              "name": "[format('{0}/{1}', parameters('azureOpenAiName'), 'GPT-3_5-Turbo')]",
-              "sku": {
-                "name": "Standard",
-                "capacity": 120
-              },
-              "properties": {
-                "model": {
-                  "format": "OpenAI",
-                  "name": "text-embedding-ada-002",
-                  "version": "2"
-                },
-                "versionUpgradeOption": "OnceNewDefaultVersionAvailable",
-                "raiPolicyName": "Microsoft.Default"
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('azureOpenAiName'))]"
-              ]
             }
           ]
         }
@@ -522,7 +519,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.20.4.51522",
-              "templateHash": "12862985966168185951"
+              "templateHash": "1367196908296151124"
             }
           },
           "parameters": {
@@ -537,7 +534,6 @@
             }
           },
           "variables": {
-            "ipAddressCidr": "[format('{0}/32', parameters('privateEndpointIpAddress'))]",
             "frontEndEndpointName": "frontEndEndpoint",
             "loadBalancingSettingsName": "loadBalancingSettings",
             "healthProbeSettingsName": "healthProbeSettings",
@@ -586,8 +582,8 @@
                     "properties": {
                       "backends": [
                         {
-                          "address": "[variables('ipAddressCidr')]",
-                          "backendHostHeader": "[variables('ipAddressCidr')]",
+                          "address": "[trim(parameters('privateEndpointIpAddress'))]",
+                          "backendHostHeader": "[trim(parameters('privateEndpointIpAddress'))]",
                           "httpPort": 80,
                           "httpsPort": 443,
                           "weight": 50,

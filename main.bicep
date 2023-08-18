@@ -7,7 +7,13 @@ param vnetIPPrefix string = '10.0.0.0/16'
 @description('The IP address prefix (CIDR range) to use when deploying the API Management subnet within the virtual network.')
 param priveEndpointSubnetIPPrefix string = '10.0.0.0/24'
 
-
+@description('Select the model for Azure Open AI service.')
+@allowed([
+  'gpt-35-turbo'
+  'gpt-35-turbo-16k'
+  'text-embedding-ada-002'
+])
+param azureOpenModel string = 'gpt-35-turbo-16k'
 
 var vnetName = 'vNet-${uniqueString(resourceGroup().id)}'
 var azureOpenAiName = 'aoai-${uniqueString(resourceGroup().id)}'
@@ -18,7 +24,6 @@ var privateEndpointNicName = '${uniqueString(resourceGroup().id)}-pip-nic'
 var frontDoorName = 'fd-${uniqueString(resourceGroup().id)}'
 
 var privateDnsZoneName = 'privatelink.azure-api.net'
-
 
 var privateEndpointSubnetName = 'privateEndpointSubnet'
 
@@ -50,6 +55,7 @@ module azureOpenAi 'modules/azure-openai.bicep' = {
   params: {
     azureOpenAiName: azureOpenAiName
     location: location
+    azureOpenModel: azureOpenModel
   }
   dependsOn: [
     network
