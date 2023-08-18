@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.20.4.51522",
-      "templateHash": "13968602158078188477"
+      "templateHash": "3944564043193192137"
     }
   },
   "parameters": {
@@ -379,6 +379,7 @@
         }
       },
       "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'azure-openai')]",
         "[resourceId('Microsoft.Resources/deployments', 'network')]"
       ]
     },
@@ -492,6 +493,7 @@
         }
       },
       "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'azure-openai')]",
         "[resourceId('Microsoft.Resources/deployments', 'network')]",
         "[resourceId('Microsoft.Resources/deployments', 'private-endpoint')]"
       ]
@@ -634,6 +636,7 @@
         }
       },
       "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'azure-openai')]",
         "[resourceId('Microsoft.Resources/deployments', 'network')]",
         "[resourceId('Microsoft.Resources/deployments', 'private-dns-zone')]",
         "[resourceId('Microsoft.Resources/deployments', 'private-endpoint')]"

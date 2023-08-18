@@ -67,6 +67,7 @@ module privateEndpoint 'modules/private-endpoint.bicep' = {
   }
   dependsOn: [
     network
+    azureOpenAi
   ]
 }
 
@@ -81,6 +82,7 @@ module privateDnsZone 'modules/private-dns-zone.bicep' = {
   }
   dependsOn: [
     network
+    azureOpenAi
     privateEndpoint
   ]
 }
@@ -93,6 +95,7 @@ module frontDoor 'modules/front-door.bicep' = {
   }
   dependsOn: [
     network
+    azureOpenAi
     privateDnsZone
     privateEndpoint
   ]
