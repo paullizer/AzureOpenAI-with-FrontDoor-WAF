@@ -46,7 +46,7 @@ resource virtualNetworkLink 'Microsoft.Network/privateDnsZones/virtualNetworkLin
   properties: {
     registrationEnabled: false
     virtualNetwork: {
-      id:  resourceId('Microsoft.Network/VirtualNetworks', vnetResourceId)
+      id:  vnetResourceId
     }
   }
 }
