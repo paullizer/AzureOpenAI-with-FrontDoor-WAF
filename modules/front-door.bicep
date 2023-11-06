@@ -1,7 +1,7 @@
 @description('The name of the frontdoor resource.')
 param frontDoorName string
 
-param privateEndpointIpAddress string
+param azureOpenAiFqdn string
 
 var frontEndEndpointName = 'frontEndEndpoint'
 var loadBalancingSettingsName = 'loadBalancingSettings'
@@ -52,8 +52,8 @@ resource frontDoor 'Microsoft.Network/frontDoors@2020-05-01' = {
         properties: {
           backends: [
             {
-              address: trim(privateEndpointIpAddress)
-              backendHostHeader: trim(privateEndpointIpAddress)
+              address: azureOpenAiFqdn
+              backendHostHeader: azureOpenAiFqdn
               httpPort: 80
               httpsPort: 443
               weight: 50

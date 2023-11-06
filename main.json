@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.20.4.51522",
-      "templateHash": "14812011525097702610"
+      "templateHash": "18446562730718230410"
     }
   },
   "parameters": {
@@ -248,7 +248,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.20.4.51522",
-              "templateHash": "9916004511015805758"
+              "templateHash": "2177501936834194897"
             }
           },
           "parameters": {
@@ -282,7 +282,13 @@
                 "publicNetworkAccess": "Disabled"
               }
             }
-          ]
+          ],
+          "outputs": {
+            "fqdn": {
+              "type": "string",
+              "value": "[split(reference(resourceId('Microsoft.CognitiveServices/accounts', parameters('azureOpenAiName')), '2023-05-01').endpoint, '/')[2]]"
+            }
+          }
         }
       },
       "dependsOn": [
@@ -508,8 +514,8 @@
           "frontDoorName": {
             "value": "[variables('frontDoorName')]"
           },
-          "privateEndpointIpAddress": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'private-endpoint'), '2022-09-01').outputs.privateIpAddress.value]"
+          "azureOpenAiFqdn": {
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'azure-openai'), '2022-09-01').outputs.fqdn.value]"
           }
         },
         "template": {
@@ -519,7 +525,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.20.4.51522",
-              "templateHash": "1367196908296151124"
+              "templateHash": "11345398903722265573"
             }
           },
           "parameters": {
@@ -529,7 +535,7 @@
                 "description": "The name of the frontdoor resource."
               }
             },
-            "privateEndpointIpAddress": {
+            "azureOpenAiFqdn": {
               "type": "string"
             }
           },
@@ -582,8 +588,8 @@
                     "properties": {
                       "backends": [
                         {
-                          "address": "[trim(parameters('privateEndpointIpAddress'))]",
-                          "backendHostHeader": "[trim(parameters('privateEndpointIpAddress'))]",
+                          "address": "[parameters('azureOpenAiFqdn')]",
+                          "backendHostHeader": "[parameters('azureOpenAiFqdn')]",
                           "httpPort": 80,
                           "httpsPort": 443,
                           "weight": 50,

@@ -36,3 +36,5 @@ resource azureOpenAi 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
 //     raiPolicyName: 'Microsoft.Default'
 //   }
 // }
+
+output fqdn string = split(azureOpenAi.properties.endpoint, '/')[2]

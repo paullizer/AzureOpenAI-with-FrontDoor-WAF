@@ -97,7 +97,7 @@ module frontDoor 'modules/front-door.bicep' = {
   name: 'front-door'
   params: {
     frontDoorName: frontDoorName
-    privateEndpointIpAddress: privateEndpoint.outputs.privateIpAddress
+    azureOpenAiFqdn: azureOpenAi.outputs.fqdn
   }
   dependsOn: [
     network
